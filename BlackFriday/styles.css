@@ -1,0 +1,323 @@
+/* 웹폰트 설정 */
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체 페이지 스타일 */
+body {
+    font-family: 'GmarketSansMedium', sans-serif;
+    background: linear-gradient(to bottom, #000, #777); /* 그라디언트 배경 */
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+header {
+    text-align: center;
+    padding: 2em 1em;
+    background: linear-gradient(to bottom, #000, #222); /* 그라디언트 배경 */
+    color: #ffd700;
+    position: relative;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+    background: #222;
+    padding: 0.5em 1em;
+}
+
+.nav-menu {
+    display: flex;
+    flex-wrap: wrap; /* 자동 줄 바꿈 */
+    justify-content: center;
+    align-items: center; /* 항목들을 수직 중앙 정렬 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu li {
+    display: flex;
+    align-items: center; /* 항목들 수직 중앙 정렬 */
+    margin: 0 10px; /* 좌우 간격 */
+}
+
+.nav-menu a {
+    color: #ffd700;
+    text-decoration: none;
+    font-size: 1em;
+    line-height: 1.5; /* 줄 높이 설정 */
+    display: block; /* 링크를 블록 레벨로 설정하여 전체 영역을 클릭 가능하도록 함 */
+    padding: 0.5em; /* 패딩 추가 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    box-sizing: border-box; /* 패딩과 보더를 포함한 전체 너비 계산 */
+}
+
+.nav-menu a:hover {
+    text-decoration: underline;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.search-bar input[type="text"] {
+    padding: 0.5em;
+    border: 1px solid #ffd700;
+    border-radius: 4px;
+    outline: none;
+    color: #000;
+    font-size: 1em;
+    margin-right: 0.5em; /* 버튼과 입력창 사이 간격 */
+}
+
+.search-bar button {
+    padding: 0.5em 1em;
+    border: none;
+    background: #ffd700;
+    color: #000;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.search-bar button:hover {
+    background: #ffa500;
+}
+
+header h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+header h2 {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+
+header p {
+    font-size: 1em;
+}
+
+/* 상품 갤러리 스타일 */
+.product-gallery {
+    display: flex;
+    flex-wrap: wrap; /* 자동 줄 바꿈 */
+    gap: 10px;
+    justify-content: center; /* 중앙 정렬 */
+    padding: 1em;
+    margin: 0 auto;
+    max-width: 1200px; /* 최대 너비 설정 */
+}
+
+.product-item {
+    flex: 1 1 21%; /* 너비를 비율로 설정 */
+    box-sizing: border-box;
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px; /* 좌우 마진 조정 */
+}
+
+.product-img-container {
+    width: 100%;
+    padding-top: 100%; /* 유지 비율을 1:1로 설정하여 정방형 크롭 */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 정방형 영역에 맞게 크롭되도록 설정 */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-item:hover .product-img {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.price {
+    font-size: 1em;
+    padding: 0.5em;
+    background: #ffd700;
+    color: #000;
+    border: none;
+    border-radius: 0 0 8px 8px;
+    display: block;
+    text-align: center;
+}
+
+.btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 0.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-top: auto; /* 버튼이 하단으로 이동하도록 설정 */
+}
+
+.btn:hover {
+    background-color: #ffd700;
+    color: #000;
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #000;
+    color: #ffd700;
+    text-align: center;
+    padding: 1em;
+    position: relative;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* 팝업창 스타일 */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 2em;
+    text-align: center;
+    border-radius: 8px;
+    color: #000;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #000;
+}
+
+.close:hover {
+    color: #ff0000; /* 마우스를 올렸을 때 색상 변경 */
+}
+
+.heart-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 24px; /* 하트 버튼의 너비를 조정 */
+    height: 24px; /* 하트 버튼의 높이를 조정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.heart-button img {
+    width: 14px; /* 하트 아이콘의 너비를 조정 */
+    height: 14px; /* 하트 아이콘의 높이를 조정 */
+}
+
+.heart-button:hover {
+    background: #ffd700;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+    background: #222;
+    padding: 0.5em 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu li {
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: #ffd700;
+    text-decoration: none;
+    font-size: 1em; /* 글자 크기 통일 */
+    text-align: center;
+    padding: 0.5em 0;
+}
+
+.nav-menu a:hover {
+    text-decoration: underline;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.search-bar input[type="text"] {
+    padding: 0.5em;
+    border: 1px solid #ffd700;
+    border-radius: 4px;
+    outline: none;
+    color: #000;
+    font-size: 1em; /* 글자 크기 통일 */
+}
+
+.search-bar button {
+    padding: 0.5em 1em;
+    margin-left: 0.5em;
+    border: none;
+    background: #ffd700;
+    color: #000;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em; /* 글자 크기 통일 */
+}
+
+.search-bar button:hover {
+    background: #ffa500;
+}

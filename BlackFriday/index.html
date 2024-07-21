@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>블랙프라이데이 세일</title>
+    <style>
+      /* 웹폰트 설정 */
+      @font-face {
+        font-family: "GmarketSansMedium";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      /* 전체 페이지 스타일 */
+      body {
+        font-family: "GmarketSansMedium", sans-serif;
+        background: linear-gradient(to bottom, #000000 0%, #444444 50%, #777777 100%);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* 헤더 스타일 */
+      header {
+        text-align: center;
+        padding: 2em 1em;
+        background: linear-gradient(to bottom, #000000 0%, #222222 100%);
+        color: #f0e68c;
+        position: relative;
+      }
+
+      /* 네비게이션 바 위 여백 추가 */
+      .nav-container {
+        background: #222;
+        padding: 1em 0; /* 세로 여백을 2배로 늘림 */
+      }
+
+      /* 네비게이션 바 스타일 */
+      .navbar {
+        background: #222;
+        padding: 0.5em 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center; /* 수직 정렬 추가 */
+      }
+
+      .nav-menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .nav-menu li {
+        margin: 0 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-menu a,
+      .search-bar input[type="text"],
+      .search-bar button {
+        color: #f0e68c;
+        text-decoration: none;
+        font-size: 1em; /* 글자 크기 통일 */
+        text-align: center;
+        padding: 0.5em 0;
+      }
+
+      .nav-menu a:hover {
+        text-decoration: underline;
+      }
+
+      .search-bar {
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+      }
+
+      .search-bar input[type="text"] {
+        padding: 0.5em;
+        border: 1px solid #f0e68c;
+        border-radius: 4px;
+        outline: none;
+        color: #000;
+      }
+
+      .search-bar button {
+        padding: 0.5em 1em;
+        margin-left: 0.5em;
+        border: none;
+        background: #f0e68c;
+        color: #000;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .search-bar button:hover {
+        background: #eee8aa;
+      }
+
+      header h1 {
+        font-size: 3em;
+        margin: 0;
+      }
+
+      header p {
+        font-size: 1em;
+        margin-top: 0; /* 텍스트 위쪽 마진 제거 */
+        margin-bottom: 0; /* 텍스트 아래쪽 마진 제거 */
+      }
+
+      /* 중앙 이미지 스타일 */
+      .central-image {
+        max-width: 60%;
+        height: auto;
+        margin-top: 0; /* 이미지를 조금 아래로 내림 */
+        margin-bottom: 0; /* 이미지 아래쪽 마진 제거 */
+      }
+
+      /* 상품 갤러리 스타일 */
+      .product-gallery {
+        display: flex;
+        flex-wrap: wrap; /* 자동 줄 바꿈 */
+        gap: 10px;
+        justify-content: center; /* 중앙 정렬 */
+        padding: 1em;
+        margin: 0 auto;
+        max-width: 1200px; /* 최대 너비 설정 */
+      }
+
+      .product-item {
+        flex: 1 1 21%; /* 너비를 비율로 설정 */
+        box-sizing: border-box;
+        position: relative;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        text-align: center;
+        color: #000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 10px; /* 좌우 마진 조정 */
+      }
+
+      .product-img-container {
+        width: 100%;
+        padding-top: 100%; /* 유지 비율을 1:1로 설정하여 정방형 크롭 */
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .product-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 이미지가 정방형 영역에 맞게 크롭되도록 설정 */
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .product-item:hover .product-img {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .price {
+        font-size: 1em;
+        padding: 0.5em;
+        background: #f0e68c;
+        color: #000;
+        border: none;
+        border-radius: 0 0 8px 8px;
+        display: block;
+        text-align: center;
+      }
+
+      .price .original-price {
+        text-decoration: line-through; /* 취소선 추가 */
+        color: #888; /* 취소선 색상 */
+      }
+
+      .btn {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        padding: 0.5em;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+        width: 100%;
+        margin-top: auto; /* 버튼이 하단으로 이동하도록 설정 */
+      }
+
+      .btn:hover {
+        background-color: #f0e68c;
+        color: #000;
+      }
+
+      /* 푸터 스타일 */
+      footer {
+        background-color: #000;
+        color: #f0e68c;
+        text-align: center;
+        padding: 1em;
+        position: relative;
+      }
+
+      footer p {
+        margin: 0;
+      }
+
+      /* 팝업창 스타일 */
+      .popup {
+        display: none; /* 기본적으로 숨김 */
+        position: fixed;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 33vw; /* 화면의 왼쪽 1/3을 차지하도록 설정 */
+        height: auto;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000; /* 다른 요소들 위에 표시되도록 설정 */
+        overflow-y: auto; /* 내용이 많을 경우 스크롤 가능 */
+        padding: 1em; /* 여백 설정 */
+        box-sizing: border-box; /* 패딩을 너비에 포함시키기 위해 */
+      }
+
+      .popup-content {
+        background: #fff;
+        padding: 2em;
+        text-align: center;
+        border-radius: 8px;
+        color: #000;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box; /* 패딩을 너비에 포함시키기 위해 */
+      }
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: #000;
+      }
+
+      .close:hover {
+        color: #ff0000; /* 마우스를 올렸을 때 색상 변경 */
+      }
+
+      .small-popup {
+        display: none; /* 기본적으로 숨김 */
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        width: 25vw; /* 화면의 1/4 너비 */
+        height: auto;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000; /* 다른 요소들 위에 표시되도록 설정 */
+        padding: 1em; /* 여백 설정 */
+        box-sizing: border-box; /* 패딩을 너비에 포함시키기 위해 */
+      }
+
+      .small-popup-content {
+        background: #fff;
+        padding: 1em;
+        text-align: center;
+        border-radius: 8px;
+        color: #000;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box; /* 패딩을 너비에 포함시키기 위해 */
+      }
+
+      .small-popup #countdown {
+        font-size: 2em;
+        font-weight: bold;
+        color: #ff0000; /* 카운트다운 색상 설정 */
+      }
+
+      /* 아이콘 툴바 스타일 */
+      .toolbar {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 8px 0 0 8px;
+        padding: 10px;
+        z-index: 1000;
+      }
+
+      .toolbar a {
+        margin: 10px 0;
+        color: #fff;
+        text-decoration: none;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px; /* 아이콘 크기 2배로 키움 */
+        height: 50px; /* 아이콘 크기 2배로 키움 */
+        background: #333;
+        border-radius: 50%;
+      }
+
+      .toolbar a:not([onclick]):hover::after {
+        content: attr(data-hover-text);
+        position: absolute;
+        left: -80px; /* 텍스트 위치 조정 */
+        background: #000;
+        padding: 5px;
+        border-radius: 4px;
+        white-space: nowrap;
+        color: #fff;
+        font-size: 0.8em;
+      }
+
+      .toolbar img {
+        width: 48px; /* 아이콘 이미지 크기 조정 */
+        height: 48px; /* 아이콘 이미지 크기 조정 */
+      }
+
+      /* 상단 슬라이딩 텍스트 스타일 */
+      .marquee-container {
+        width: 100%;
+        background-color: #f0e68c;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000; /* 최상단에 위치하도록 설정 */
+      }
+
+      .marquee {
+        display: inline-block;
+        white-space: nowrap;
+        animation: marquee 16s linear infinite; /* 속도 증가 */
+        color: #000;
+        font-size: 0.8em; /* 글씨 크기 줄임 */
+        padding: 5px 0; /* 세로 보폭 줄임 */
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      /* 성공 팝업 스타일 */
+      .success-popup {
+        display: none; /* 기본적으로 숨김 */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000; /* 다른 요소들 위에 표시되도록 설정 */
+        padding: 1em; /* 여백 설정 */
+        box-sizing: border-box; /* 패딩을 너비에 포함시키기 위해 */
+        border-radius: 8px;
+        color: #fff;
+        text-align: center;
+      }
+
+      .success-popup button {
+        background-color: #f0e68c;
+        color: #000;
+        border: none;
+        padding: 0.5em 1em;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .success-popup button:hover {
+        background-color: #eee8aa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="marquee-container">
+      <div class="marquee">
+        1년에 단 한 번!! 전에 없던 파격 세일!! 완~전 럭키비키잖아?! 원하는대로 다 골라담고 스마트하게 555 할인(55%+5%)
+        받자! 무료배송 쿠폰까지!!!!
+      </div>
+    </div>
+    <header>
+      <div class="nav-container">
+        <div class="navbar">
+          <img src="images/coconut.png" alt="기업 로고" style="height: 50px; margin-right: 10px" />
+          <ul class="nav-menu">
+            <li><a href="#">BEST</a></li>
+            <li><a href="#">NEW</a></li>
+            <li><a href="#">오늘의할인</a></li>
+            <li><a href="#">카테고리</a></li>
+            <li class="search-bar">
+              <input type="text" placeholder="검색어 입력" />
+              <button type="button">검색</button>
+            </li>
+            <li><a href="#">로그인&회원가입</a></li>
+            <li><a href="#">주문&계정</a></li>
+            <li><a href="#">고객센터</a></li>
+            <li><a href="#">장바구니</a></li>
+            <li><a href="#">마이페이지</a></li>
+          </ul>
+        </div>
+      </div>
+      <img src="images/BF3.png" alt="BL%CK FRIDAY SALE WEEK" class="central-image" />
+      <p>단 5일, 특별한 세일을 마음껏 즐겨보세요!</p>
+      <div class="special-sale">
+        <div class="special-sale-column">
+          <!-- 특가 상품 리스트나 내용 삽입 가능 -->
+        </div>
+        <div class="special-sale-column">
+          <p class="special-sale-desc">『 10시 ~ 19시, 7월 22일 - 26일까지 』</p>
+          <p class="special-sale-note">이벤트 기간 동안 사용 가능한 무료배송 쿠폰을 드립니다!</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="product-gallery">
+      <!-- 각 상품 항목 -->
+      <div class="product-item">
+        <div class="product-img-container">
+          <img src="images/vacuum2.jpg" alt="상품 이미지 1" class="product-img" />
+        </div>
+        <p>로봇청소기</p>
+        <p class="price"><span class="original-price">₩590,000</span> ₩320,000</p>
+        <button class="btn" onclick="showSuccessPopup()">구매하기</button>
+      </div>
+      <div class="product-item">
+        <div class="product-img-container">
+          <img src="images/oven.jpg" alt="상품 이미지 2" class="product-img" />
+        </div>
+        <p>오븐</p>
+        <p class="price"><span class="original-price">₩150,000</span> ₩79,000</p>
+        <button class="btn" onclick="showSuccessPopup()">구매하기</button>
+      </div>
+      <div class="product-item">
+        <div class="product-img-container">
+          <img src="images/toast.png" alt="상품 이미지 3" class="product-img" />
+        </div>
+        <p>토스터</p>
+        <p class="price"><span class="original-price">₩200,000</span> ₩99,000</p>
+        <button class="btn" onclick="showSuccessPopup()">구매하기</button>
+      </div>
+      <div class="product-item">
+        <div class="product-img-container">
+          <img src="images/fridge.jpg" alt="상품 이미지 4" class="product-img" />
+        </div>
+        <p>냉장고</p>
+        <p class="price"><span class="original-price">₩4,800,000</span> ₩3,200,000</p>
+        <button class="btn" onclick="showSuccessPopup()">구매하기</button>
+      </div>
+      <div class="product-item">
+        <div class="product-img-container">
+          <img src="images/bike2.png" alt="상품 이미지 5" class="product-img" />
+        </div>
+        <p>자전거</p>
+        <p class="price"><span class="original-price">₩140,000</span> ₩59,000</p>
+        <button class="btn" onclick="showSuccessPopup()">구매하기</button>
+      </div>
+      <div class="product-item">
+        <div class="product-img-container">
+          <img src="images/washing.png" alt="상품 이미지 6" class="product-img" />
+        </div>
+        <p>세탁기</p>
+        <p class="price"><span class="original-price">₩329,000</span> ₩149,000</p>
+        <button class="btn" onclick="showSuccessPopup()">구매하기</button>
+      </div>
+      <div class="product-item">
+        <div class="product-img-container">
+          <img src="images/mixer.jpg" alt="상품 이미지 7" class="product-img" />
+        </div>
+        <p>블렌더</p>
+        <p class="price"><span class="original-price">₩179,000</span> ₩79,000</p>
+        <button class="btn" onclick="showSuccessPopup()">구매하기</button>
+      </div>
+      <div class="product-item" style="background: none; border: none">
+        <p><br /></p>
+        <div class="product-img-container">
+          <img src="images/mart.png" alt="상품 이미지 8" class="product-img" />
+        </div>
+        <p>SHOP<br />RIGHT NOW!</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 블랙프라이데이 세일. All rights reserved.</p>
+    </footer>
+
+    <!-- 팝업창 -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <img src="images/memoji.jpeg" alt="팝업 이미지" style="width: 50%; height: auto; margin-bottom: 1em" />
+        <p>지금 바로 사면 5% 추가할인! <br /><span id="countdown" style="color: red; font-size: 2em">hh:mm:ss</span></p>
+        <hr />
+        <p>썸머 키워드 즐겨찾기</p>
+        <p>#살안타템 #쟁여둘템 #장마템 #컬러풀템</p>
+      </div>
+    </div>
+
+    <!-- 작은 팝업창 -->
+    <div id="small-popup" class="small-popup">
+      <div class="small-popup-content">
+        <p>
+          5% 추가할인 쿠폰 소멸임박!<br /><span id="small-countdown" style="color: red; font-size: 2em">hh:mm:ss</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- 성공 팝업창 -->
+    <div id="success-popup" class="success-popup">
+      <p>성공적으로 장바구니에 담겼습니다!<br />더 많은 상품을 둘러보시겠습니까?</p>
+      <button onclick="closeSuccessPopup()">확인</button>
+    </div>
+
+    <!-- 오른쪽 아이콘 툴바 -->
+    <div class="toolbar">
+      <a href="#" data-hover-text="스마트서치"><img src="images/1.png" alt="아이콘 1" /></a>
+      <a href="#" data-hover-text="숏:핑"><img src="images/2.png" alt="아이콘 2" /></a>
+      <a href="#" data-hover-text="마이픽 메뉴"><img src="images/3.png" alt="아이콘 3" /></a>
+      <a href="#" data-hover-text="네이버톡"><img src="images/4.png" alt="아이콘 4" /></a>
+      <a href="#" data-hover-text="카카오상담"><img src="images/5.png" alt="아이콘 5" /></a>
+      <a href="#" onclick="scrollToTop()"><img src="images/6.png" alt="아이콘 6" /></a>
+      <a href="#" onclick="scrollToBottom()"><img src="images/7.png" alt="아이콘 7" /></a>
+    </div>
+
+    <script>
+      // 팝업창 열기
+      function openPopup() {
+        document.getElementById("popup").style.display = "block";
+      }
+
+      // 팝업창 닫기
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("small-popup").style.display = "block";
+      }
+
+      // 카운트다운 타이머 설정
+      const countdownElement = document.getElementById("countdown");
+      const smallCountdownElement = document.getElementById("small-countdown");
+      const targetDate = new Date().getTime() + 3 * 60 * 60 * 1000; // 현재 시간에서 3시간 후
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+          countdownElement.innerHTML = "00:00:00";
+          smallCountdownElement.innerHTML = "00:00:00";
+          clearInterval(countdownInterval);
+          return;
+        }
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const formattedTime = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(
+          seconds
+        ).padStart(2, "0")}`;
+        countdownElement.innerHTML = formattedTime;
+        smallCountdownElement.innerHTML = formattedTime;
+      }
+
+      const countdownInterval = setInterval(updateCountdown, 1000);
+
+      // 페이지 로드 시 팝업창 열기
+      window.onload = openPopup;
+
+      // 성공 팝업창 표시
+      function showSuccessPopup() {
+        document.getElementById("success-popup").style.display = "block";
+      }
+
+      // 성공 팝업창 닫기
+      function closeSuccessPopup() {
+        document.getElementById("success-popup").style.display = "none";
+      }
+
+      // 페이지 상단으로 스크롤
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      // 페이지 하단으로 스크롤
+      function scrollToBottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    </script>
+  </body>
+</html>
